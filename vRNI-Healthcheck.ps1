@@ -2,6 +2,7 @@
 Powershell vRNI Healthcheck script
 Requires posh-ssh module --> Find-Module Posh-SSH | Install-Module
 v1.0 vMan.ch, 20.01.2018 - Initial Version
+v1.1 vMan.ch, 06.07.2018 - Updated to support vRNI 3.7
 
     SSH to each server in Nodes using posh-ssh and run command "cli show-service-status" and searches for any service "not running"
 
@@ -104,7 +105,7 @@ $RunDateTimeReport = $RunDateTimeReport.tostring("HH:mm:ss dd/MM/yyyy")
 
   Log -Message "Running command cli show-service-status on $node" -LogType "JOB-$RunDateTime" -LogFile $LogFileLoc
 
-  $commandOutput = Invoke-SSHCommand -SessionId 0 -Command "cli show-service-status"
+  $commandOutput = Invoke-SSHCommand -SessionId 0 -Command "sudo cli show-service-status"
 
    $ServiceStatus = $commandOutput.Output -replace '([^0-9])\d([^A-Za-z])([m])'
    $ServiceStatus = $ServiceStatus -replace '([^0-9])\d\d'
